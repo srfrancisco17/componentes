@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:componentes/src/pages/alert_page.dart';
 
 class HomePageTemp extends StatelessWidget {
   final opciones = ['Uno', 'Dos', 'Tres', 'Cuatro', 'Cinco'];
@@ -8,7 +9,7 @@ class HomePageTemp extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Componentes Temp')),
       body: ListView(
-        children: _crearItemsCorta(),
+        children: _crearItems(),
       ),
     );
   }
@@ -17,12 +18,12 @@ class HomePageTemp extends StatelessWidget {
     List<Widget> lista = <Widget>[];
 
     for (String opt in opciones) {
-      final tempWidget = ListTile(
+      final widgetTemp = ListTile(
         title: Text(opt),
       );
 
       lista
-        ..add(tempWidget)
+        ..add(widgetTemp)
         ..add(Divider());
     }
 
@@ -38,7 +39,11 @@ class HomePageTemp extends StatelessWidget {
             subtitle: Text('Subtitulo'),
             leading: Icon(Icons.wallet_giftcard),
             trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {},
+            onTap: () {
+              final route = MaterialPageRoute(builder: (context) {
+                return AlertPage();
+              });
+            },
           ),
           Divider()
         ],
