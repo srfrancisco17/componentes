@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new
-
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -13,6 +11,9 @@ class _InputPageState extends State<InputPage> {
   String _nombre = '';
   String _email = '';
   String _password = '';
+  String _fecha = '';
+
+  TextEditingController _inputFieldDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +108,7 @@ class _InputPageState extends State<InputPage> {
 
     return TextField(
       enableInteractiveSelection: false,
+      controller: _inputFieldDateController,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
         counter: Text('Letras ${_email.length}'),
@@ -117,18 +119,34 @@ class _InputPageState extends State<InputPage> {
       ),
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
-        _selectDate(context)
+        _selectDate(context);
       },
     );    
   }
 
   _selectDate(BuildContext context) async{
-    DateTime picked = await showDatePicker(
+
+    DateTime now = DateTime.now();
+    DateTime firstDate = DateTime(2020);
+    DateTime lastDate = DateTime(2022);
+
+    DateTime? picked = await showDatePicker(
       context: context, 
-      // initialDate: new DateTime.now(), 
-      // firstDate: new DateTime(2020), 
-      // lastDate: new DateTime(2022),
+      initialDate: now, 
+      firstDate: firstDate,
+      lastDate: lastDate,
     );
+
+    if (picked != null){
+      setState(() {
+        _fecha = picked.toString();
+        _inputFieldDateController.text = _fecha;
+      });
+    }
+
   }
+
+  
+
 
 }
