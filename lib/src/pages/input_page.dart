@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_new
 
 import 'package:flutter/material.dart';
 
@@ -30,6 +30,8 @@ class _InputPageState extends State<InputPage> {
           _crearEmail(),     
           Divider(), 
           _crearPassword(),
+          Divider(), 
+          _crearFecha(context),
         ],
       ),
     );
@@ -98,6 +100,34 @@ class _InputPageState extends State<InputPage> {
     return ListTile(
       title: Text('Nombre es: $_nombre'),
       subtitle: Text('Email: $_email, Contrasena: $_password'),
+    );
+  }
+
+  Widget _crearFecha(BuildContext context) {
+
+    return TextField(
+      enableInteractiveSelection: false,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+        counter: Text('Letras ${_email.length}'),
+        hintText: 'Fecha de nacimiento',
+        labelText: 'Fecha de nacimiento',
+        suffix: Icon(Icons.perm_contact_calendar),
+        icon: Icon(Icons.calendar_today),
+      ),
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _selectDate(context)
+      },
+    );    
+  }
+
+  _selectDate(BuildContext context) async{
+    DateTime picked = await showDatePicker(
+      context: context, 
+      // initialDate: new DateTime.now(), 
+      // firstDate: new DateTime(2020), 
+      // lastDate: new DateTime(2022),
     );
   }
 
