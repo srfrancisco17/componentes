@@ -12,6 +12,8 @@ class _InputPageState extends State<InputPage> {
   String _email = '';
   String _password = '';
   String _fecha = '';
+  List<String> _poderes = ['Volar', 'Rayo', 'Fuerza', 'Salto'];
+  String _opcionSeleccionada = 'Volar';
 
   TextEditingController _inputFieldDateController = TextEditingController();
 
@@ -33,6 +35,8 @@ class _InputPageState extends State<InputPage> {
           _crearPassword(),
           Divider(), 
           _crearFecha(context),
+          Divider(), 
+          _crearDropdown(),
         ],
       ),
     );
@@ -40,7 +44,7 @@ class _InputPageState extends State<InputPage> {
 
   Widget _crearInput() {
     return TextField(
-      autofocus: true,
+      // autofocus: true,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -101,6 +105,7 @@ class _InputPageState extends State<InputPage> {
     return ListTile(
       title: Text('Nombre es: $_nombre'),
       subtitle: Text('Email: $_email, Contrasena: $_password'),
+      trailing: Text(_opcionSeleccionada),
     );
   }
 
@@ -135,7 +140,7 @@ class _InputPageState extends State<InputPage> {
       initialDate: now, 
       firstDate: firstDate,
       lastDate: lastDate,
-      locale: Locale('es', 'ES')
+      locale: const Locale('es', 'ES')
     );
 
     if (picked != null){
@@ -147,7 +152,36 @@ class _InputPageState extends State<InputPage> {
 
   }
 
-  
+  List<DropdownMenuItem<String>> getOpcionesDropdown(){
+    List<DropdownMenuItem<String>> lista = [];
 
+
+    _poderes.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
+
+    return lista;
+  }
+
+  Widget _crearDropdown() {
+
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0),
+        Expanded(
+          child: DropdownButton(
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (val) => setState(() => _opcionSeleccionada = val as String), 
+          )
+        )
+      ],
+    );
+
+  }
 
 }
