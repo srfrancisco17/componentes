@@ -36,6 +36,11 @@
       "ruta" : "list",
       "icon" : "list",
       "texto" : "Listas y Scroll"
-    }
+    },
+    {
+    	"ruta" : "widgetOne",
+      "icon" : "flutter_dash",
+      "texto" : "Widget One"
+    }    
   ]
 }
